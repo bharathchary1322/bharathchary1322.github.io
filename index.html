@@ -90,10 +90,92 @@ gap:14px;
 margin-top:28px;
 flex-wrap:wrap;
 }
+#loader{
+position:fixed;
+inset:0;
+background:#05080d;
+z-index:99999;
+display:flex;
+align-items:center;
+justify-content:center;
+transition:opacity .8s ease,visibility .8s ease;
+}
+
+#loader.hide{
+opacity:0;
+visibility:hidden;
+}
+
+.loader-content{text-align:center}
+
+.loader-name{
+font-size:clamp(45px,8vw,120px);
+letter-spacing:-4px;
+overflow:hidden;
+}
+
+.loader-name span{
+display:inline-block;
+opacity:0;
+transform:translateY(80px);
+animation:nameReveal .8s forwards;
+}
+
+.loader-name span:nth-child(2){
+animation-delay:.45s;
+}
+
+.loader-red{color:var(--red)}
+
+.loader-content p{
+color:var(--muted);
+letter-spacing:5px;
+font-size:12px;
+opacity:0;
+animation:fadeLoader .7s 1s forwards;
+}
+
+.loader-line{
+width:260px;
+height:2px;
+background:#202a36;
+margin:25px auto 0;
+overflow:hidden;
+}
+
+.loader-line i{
+display:block;
+height:100%;
+width:0;
+background:var(--red);
+animation:loadLine 2.2s forwards;
+}
+
+@keyframes nameReveal{
+to{opacity:1;transform:translateY(0)}
+}
+
+@keyframes fadeLoader{
+to{opacity:1}
+}
+
+@keyframes loadLine{
+to{width:100%}
+}
 @media(max-width:900px){nav .links{display:none}.hero{grid-template-columns:1fr;padding-top:115px}.visual{margin-top:15px}.speak{left:12px;bottom:12px;width:calc(100% - 24px)}.grid{grid-template-columns:1fr}h1{letter-spacing:-2px}footer{gap:15px;flex-direction:column}}
 </style>
 </head>
 <body>
+<div id="loader">
+  <div class="loader-content">
+    <h1 class="loader-name">
+      <span>BHARATH</span>
+      <span class="loader-red">VADLA</span>
+    </h1>
+    <p>SAP BASIS ADMINISTRATOR</p>
+    <div class="loader-line"><i></i></div>
+  </div>
+</div>
 <nav><div class="logo"><span>Bharath</span> Vadla</div><div class="links"><a href="#about">About</a><a href="#skills">Skills</a><a href="#cases">Case Studies</a><a href="#education">Education</a><a href="#contact">Contact</a></div><a class="hire" href="#contact">Hire Me</a></nav>
 
 <main>
@@ -235,6 +317,11 @@ modal.addEventListener('click',e=>{if(e.target===modal)closeIntro()});
 video.addEventListener('ended',closeIntro);
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show')}),{threshold:.12});
 document.querySelectorAll('.reveal').forEach(e=>io.observe(e));
+window.addEventListener("load",()=>{
+  setTimeout(()=>{
+    document.getElementById("loader").classList.add("hide");
+  },2400);
+});
 </script>
 </body>
 </html>
